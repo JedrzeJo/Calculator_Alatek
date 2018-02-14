@@ -89,12 +89,17 @@ int stringTOint(char table []){
 				char x = outsideBRACKETSlist.front();
 				int a = (int)x - 48;						//conversion from ASCII
 				outsideBRACKETSlist.pop_front();
-				char y; int b;
-				if(outsideBRACKETSlist.empty()==false){
-				y = outsideBRACKETSlist.front();
-				b = (int)y - 48;			
-				outsideBRACKETSlist.pop_front();
+				char y; int b; char operation;
+				if(outsideBRACKETSstack.empty()==false){
+					operation = outsideBRACKETSstack.top();
+					outsideBRACKETSstack.pop();
 				}
+				if(outsideBRACKETSlist.empty()==false){
+					y = outsideBRACKETSlist.front();
+					b = (int)y - 48;			
+					outsideBRACKETSlist.pop_front();
+				}
+				else{count(sum, a, operation);}
 				/*try{
 				y = outsideBRACKETSlist.front();
 				b = (int)y - 48;						//conversion from ASCII
@@ -102,8 +107,6 @@ int stringTOint(char table []){
 				}
 				catch(...){cout<<"error line 94 catched"<<endl;
 				}*/
-				char operation = outsideBRACKETSstack.top();
-				outsideBRACKETSstack.pop();
 				if(outsideBRACKETSstack.empty()==false){
 					if(outsideBRACKETSstack.top()=='/' || outsideBRACKETSstack.top()=='*'){
 						char operation2 = outsideBRACKETSstack.top();
