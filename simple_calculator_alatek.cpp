@@ -65,8 +65,6 @@ int stringTOint(char table []){
 	stack<char> insideBRACKETSstack;
 
 	for (int i=0; table[i]!=NULL; i++){
-
-
 		if(table[i]=='('){
 			for(int j=i;table[j]!=')';j++){
 				if(isAnumber(table[j])){
@@ -78,34 +76,46 @@ int stringTOint(char table []){
 				//......to be continued
 			}
 		}
-
 		else if(isAnumber(table[i])){
 			outsideBRACKETSlist.push_front(table[i]);
 		}
 		else if(table[i]=='+' || table[i]=='-' || table[i]=='*' || table[i]=='/'){
 			outsideBRACKETSstack.push(table[i]);
 		}
+		else{cout<<"wprowadzono zly znak"<<endl;}		//walidacja
 	}
 	//counting what's outside of the brackets
 		do {
 				char x = outsideBRACKETSlist.front();
 				int a = (int)x - 48;						//conversion from ASCII
 				outsideBRACKETSlist.pop_front();
-				char y = outsideBRACKETSlist.front();
-				int b = (int)y - 48;						//conversion from ASCII
+				char y; int b;
+				if(outsideBRACKETSlist.empty()==false){
+				y = outsideBRACKETSlist.front();
+				b = (int)y - 48;			
 				outsideBRACKETSlist.pop_front();
+				}
+				/*try{
+				y = outsideBRACKETSlist.front();
+				b = (int)y - 48;						//conversion from ASCII
+				outsideBRACKETSlist.pop_front();
+				}
+				catch(...){cout<<"error line 94 catched"<<endl;
+				}*/
 				char operation = outsideBRACKETSstack.top();
 				outsideBRACKETSstack.pop();
-				if(outsideBRACKETSstack.top()=='/' || outsideBRACKETSstack.top()=='*'){
-					char operation2 = outsideBRACKETSstack.top();
-					outsideBRACKETSstack.pop();
-					char z = outsideBRACKETSlist.front();
-					int c = (int)z - 48;					//conversion from ASCII
-					outsideBRACKETSlist.pop_front();
-					b = count(c, b, operation2);
+				if(outsideBRACKETSstack.empty()==false){
+					if(outsideBRACKETSstack.top()=='/' || outsideBRACKETSstack.top()=='*'){
+						char operation2 = outsideBRACKETSstack.top();
+						outsideBRACKETSstack.pop();
+						char z = outsideBRACKETSlist.front();
+						int c = (int)z - 48;					//conversion from ASCII
+						outsideBRACKETSlist.pop_front();
+						b = count(c, b, operation2);
+					}
 				}
-				sum = count(b, a, operation);
-		} while(false); // I HAVE NO IDEA WHY while(outsideBRACKETSlist.empty()==false); is FUCKING UP THE PROGRAM.
+				sum = count(b, a, operation); 
+		} while(outsideBRACKETSlist.empty()==false);
 
 
 	return sum;
