@@ -105,7 +105,7 @@ int stringTOint(char table []){
 					b = count(c, b, operation2);
 				}
 				sum = count(b, a, operation);
-		} while(false);
+		} while(false); // I HAVE NO IDEA WHY while(outsideBRACKETSlist.empty()==false); is FUCKING UP THE PROGRAM.
 
 
 	return sum;
