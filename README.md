@@ -1,2 +1,2 @@
 # Calculator_Alatek
-doesn;t compile properly for now.
+some corrections made, but still gives wrong result
