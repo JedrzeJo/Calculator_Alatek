@@ -14,7 +14,7 @@ int count(int a, int b, char x);
 
 int main(){
 	vector <string> vector_with_equations;
-/*
+
 	//string a="(2+2)*2";
 	string b="3+3*3";
 	fstream newFile;
@@ -22,7 +22,7 @@ int main(){
 	//newFile<<a<<endl;
 	newFile<<b<<endl;
 	newFile.close();
-*/
+
 
 	fstream file;
 	file.open("equations.txt", ios::in);
@@ -33,7 +33,7 @@ int main(){
 	}
 
 	string tmp_string;
-	int amount_of_equations=0;
+	int amount_of_equations=-1;	// -1  because: while(!file.eof()) -> runs once more than lines number...
 
 	while(!file.eof()){
 	getline(file, tmp_string);
@@ -52,11 +52,8 @@ int main(){
 	for(int i =0; i<amount_of_equations; i++){
 		char single_equation_tmp [100];										//local char array
 		strcpy(single_equation_tmp, vector_with_equations.at(i).c_str());	//converting string to local char array
-			for(int j=0; j<strlen(single_equation_tmp); j++){				//strlen returns charArray length
-				cout << stringTOint(single_equation_tmp)<<endl;				//KEY POINT - my function
-				//cout <<(int)single_equation_tmp[j]<<endl;	//chars to ASCII conversion corectness TEST
-			}
-		cout<<endl;
+		//cout <<(int)single_equation_tmp[j]<<endl;	//chars to ASCII conversion corectness TEST
+		cout << stringTOint(single_equation_tmp)<<endl;		//KEY POINT - my function
 	}
 }
 
@@ -88,8 +85,9 @@ int stringTOint(char table []){
 		else if(table[i]=='+' || table[i]=='-' || table[i]=='*' || table[i]=='/'){
 			outsideBRACKETSstack.push(table[i]);
 		}
-		//counting what's outside of the brackets
-		while(outsideBRACKETSlist.empty()==false){
+	}
+	//counting what's outside of the brackets
+		do {
 				char x = outsideBRACKETSlist.front();
 				int a = (int)x - 48;						//conversion from ASCII
 				outsideBRACKETSlist.pop_front();
@@ -107,8 +105,7 @@ int stringTOint(char table []){
 					b = count(c, b, operation2);
 				}
 				sum = count(b, a, operation);
-		}
-	}
+		} while(false);
 
 
 	return sum;
